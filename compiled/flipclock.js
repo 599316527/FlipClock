@@ -1306,7 +1306,7 @@ var FlipClock;
 		 * @return  array  An array of digits
 		 */
 
-		digitize: function(obj) {
+		digitize: function(obj, doNotSplit) {
 			var data = [];
 
 			$.each(obj, function(i, value) {
@@ -1316,9 +1316,14 @@ var FlipClock;
 					value = '0'+value;
 				}
 
-				for(var x = 0; x < value.length; x++) {
-					data.push(value.charAt(x));
+				if (doNotSplit) {
+					data.push(value);
+				} else {
+					for(var x = 0; x < value.length; x++) {
+						data.push(value.charAt(x));
+					}
 				}
+
 			});
 
 			if(data.length > this.minimumDigits) {
@@ -1354,7 +1359,7 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 
-		getDayCounter: function(includeSeconds, doNotDigitize) {
+		getDayCounter: function(includeSeconds, doNotSplit) {
 			var digits = [
 				this.getDays(),
 				this.getHours(true),
@@ -1365,7 +1370,7 @@ var FlipClock;
 				digits.push(this.getSeconds(true));
 			}
 
-			return !doNotDigitize ? this.digitize(digits) : digits;
+			return this.digitize(digits, doNotSplit);
 		},
 
 		/**
@@ -1391,14 +1396,14 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 
-		getHourCounter: function(doNotDigitize) {
+		getHourCounter: function(doNotSplit) {
 			var obj = [
 				this.getHours(),
 				this.getMinutes(true),
 				this.getSeconds(true)
 			];
 
-			return !doNotDigitize ? this.digitize(obj) : obj;
+			return this.digitize(obj, doNotSplit);
 		},
 
 		/**
@@ -1434,7 +1439,7 @@ var FlipClock;
 		 * @return  object  returns a digitized object
 		 */
 
-		getMilitaryTime: function(date, showSeconds, doNotDigitize) {
+		getMilitaryTime: function(date, showSeconds, doNotSplit) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -1452,7 +1457,7 @@ var FlipClock;
 				data.push(date.getSeconds());
 			}
 
-			return !doNotDigitize ? this.digitize(data) : data;
+			return this.digitize(data, doNotSplit);
 		},
 
 		/**
@@ -1476,13 +1481,13 @@ var FlipClock;
 		 * Gets a minute breakdown
 		 */
 
-		getMinuteCounter: function(doNotDigitize) {
+		getMinuteCounter: function(doNotSplit) {
 			var obj = [
 				this.getMinutes(),
 				this.getSeconds(true)
 			];
 
-			return !doNotDigitize ? this.digitize(obj) : obj;
+			return this.digitize(obj, doNotSplit);
 		},
 
 		/**
@@ -1513,7 +1518,7 @@ var FlipClock;
 		 * @return  object  Returns a digitized object
 		 */
 
-		getTime: function(date, showSeconds, doNotDigitize) {
+		getTime: function(date, showSeconds, doNotSplit) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -1536,7 +1541,7 @@ var FlipClock;
 				data.push(date.getSeconds());
 			}
 
-			return !doNotDigitize ? this.digitize(data) : data;
+			return this.digitize(data, doNotSplit);
 		},
 
 		/**
@@ -2091,7 +2096,7 @@ var FlipClock;
 
 		constructor: function(factory, options) {
 			this.base(factory, options);
-			this.doNotDigitize = options['doNotDigitize'] === true;
+			this.doNotSplit = options['doNotSplit'] === true;
 		},
 
 		/**
@@ -2103,8 +2108,8 @@ var FlipClock;
 			var children = this.factory.$el.find('ul');
 			var offset = 0;
 
-			time = time ? time : this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
-			var offsetRatio = this.doNotDigitize ? 1 : 2;
+			time = time ? time : this.factory.time.getDayCounter(this.showSeconds, this.doNotSplit);
+			var offsetRatio = this.doNotSplit ? 1 : 2;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -2133,7 +2138,7 @@ var FlipClock;
 
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
+				time = this.factory.time.getDayCounter(this.showSeconds, this.doNotSplit);
 			}
 
 			this.autoIncrement();
@@ -2172,7 +2177,7 @@ var FlipClock;
 
 		constructor: function(factory, options) {
 			this.base(factory, options);
-			this.doNotDigitize = options['doNotDigitize'] === true;
+			this.doNotSplit = options['doNotSplit'] === true;
 		},
 
 		/**
@@ -2183,8 +2188,8 @@ var FlipClock;
 			var t = this;
 			var children = this.factory.$el.find('ul');
 
-			time = time ? time : this.factory.time.getHourCounter(this.doNotDigitize);
-			var offsetRatio = this.doNotDigitize ? 1 : 2;
+			time = time ? time : this.factory.time.getHourCounter(this.doNotSplit);
+			var offsetRatio = this.doNotSplit ? 1 : 2;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -2208,7 +2213,7 @@ var FlipClock;
 
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getHourCounter(this.doNotDigitize);
+				time = this.factory.time.getHourCounter(this.doNotSplit);
 			}
 
 			this.autoIncrement();
@@ -2376,87 +2381,6 @@ var FlipClock;
 	
 }(jQuery));
 (function($) {
-
-    /**
-     * FlipClock Arabic Language Pack
-     *
-     * This class will be used to translate tokens into the Arabic language.
-     *
-     */
-
-    FlipClock.Lang.Arabic = {
-
-      'years'   : 'سنوات',
-      'months'  : 'شهور',
-      'days'    : 'أيام',
-      'hours'   : 'ساعات',
-      'minutes' : 'دقائق',
-      'seconds' : 'ثواني'
-
-    };
-
-    /* Create various aliases for convenience */
-
-    FlipClock.Lang['ar']      = FlipClock.Lang.Arabic;
-    FlipClock.Lang['ar-ar']   = FlipClock.Lang.Arabic;
-    FlipClock.Lang['arabic']  = FlipClock.Lang.Arabic;
-
-}(jQuery));
-(function($) {
-		
-	/**
-	 * FlipClock Danish Language Pack
-	 *
-	 * This class will used to translate tokens into the Danish language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.Danish = {
-		
-		'years'   : 'År',
-		'months'  : 'Måneder',
-		'days'    : 'Dage',
-		'hours'   : 'Timer',
-		'minutes' : 'Minutter',
-		'seconds' : 'Sekunder'	
-
-	};
-	
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['da']     = FlipClock.Lang.Danish;
-	FlipClock.Lang['da-dk']  = FlipClock.Lang.Danish;
-	FlipClock.Lang['danish'] = FlipClock.Lang.Danish;
-
-}(jQuery));
-(function($) {
-		
-	/**
-	 * FlipClock German Language Pack
-	 *
-	 * This class will used to translate tokens into the German language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.German = {
-		
-		'years'   : 'Jahre',
-		'months'  : 'Monate',
-		'days'    : 'Tage',
-		'hours'   : 'Stunden',
-		'minutes' : 'Minuten',
-		'seconds' : 'Sekunden'	
- 
-	};
-	
-	/* Create various aliases for convenience */
- 
-	FlipClock.Lang['de']     = FlipClock.Lang.German;
-	FlipClock.Lang['de-de']  = FlipClock.Lang.German;
-	FlipClock.Lang['german'] = FlipClock.Lang.German;
- 
-}(jQuery));
-(function($) {
 		
 	/**
 	 * FlipClock English Language Pack
@@ -2483,282 +2407,6 @@ var FlipClock;
 	FlipClock.Lang['english'] = FlipClock.Lang.English;
 
 }(jQuery));
-(function($) {
-		
-	/**
-	 * FlipClock Spanish Language Pack
-	 *
-	 * This class will used to translate tokens into the Spanish language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.Spanish = {
-		
-		'years'   : 'A&#241;os',
-		'months'  : 'Meses',
-		'days'    : 'D&#205;as',
-		'hours'   : 'Horas',
-		'minutes' : 'Minutos',
-		'seconds' : 'Segundo'	
-
-	};
-	
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['es']      = FlipClock.Lang.Spanish;
-	FlipClock.Lang['es-es']   = FlipClock.Lang.Spanish;
-	FlipClock.Lang['spanish'] = FlipClock.Lang.Spanish;
-
-}(jQuery));
-(function($) {
-		
-	/**
-	 * FlipClock Finnish Language Pack
-	 *
-	 * This class will used to translate tokens into the Finnish language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.Finnish = {
-		
-		'years'   : 'Vuotta',
-		'months'  : 'Kuukautta',
-		'days'    : 'Päivää',
-		'hours'   : 'Tuntia',
-		'minutes' : 'Minuuttia',
-		'seconds' : 'Sekuntia'	
-
-	};
-	
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['fi']      = FlipClock.Lang.Finnish;
-	FlipClock.Lang['fi-fi']   = FlipClock.Lang.Finnish;
-	FlipClock.Lang['finnish'] = FlipClock.Lang.Finnish;
-
-}(jQuery));
-
-(function($) {
-
-  /**
-   * FlipClock Canadian French Language Pack
-   *
-   * This class will used to translate tokens into the Canadian French language.
-   *
-   */
-
-  FlipClock.Lang.French = {
-
-    'years'   : 'Ans',
-    'months'  : 'Mois',
-    'days'    : 'Jours',
-    'hours'   : 'Heures',
-    'minutes' : 'Minutes',
-    'seconds' : 'Secondes'
-
-  };
-
-  /* Create various aliases for convenience */
-
-  FlipClock.Lang['fr']      = FlipClock.Lang.French;
-  FlipClock.Lang['fr-ca']   = FlipClock.Lang.French;
-  FlipClock.Lang['french']  = FlipClock.Lang.French;
-
-}(jQuery));
-
-(function($) {
-		
-	/**
-	 * FlipClock Italian Language Pack
-	 *
-	 * This class will used to translate tokens into the Italian language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.Italian = {
-		
-		'years'   : 'Anni',
-		'months'  : 'Mesi',
-		'days'    : 'Giorni',
-		'hours'   : 'Ore',
-		'minutes' : 'Minuti',
-		'seconds' : 'Secondi'	
-
-	};
-	
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['it']      = FlipClock.Lang.Italian;
-	FlipClock.Lang['it-it']   = FlipClock.Lang.Italian;
-	FlipClock.Lang['italian'] = FlipClock.Lang.Italian;
-	
-}(jQuery));
-
-(function($) {
-
-  /**
-   * FlipClock Latvian Language Pack
-   *
-   * This class will used to translate tokens into the Latvian language.
-   *
-   */
-
-  FlipClock.Lang.Latvian = {
-
-    'years'   : 'Gadi',
-    'months'  : 'Mēneši',
-    'days'    : 'Dienas',
-    'hours'   : 'Stundas',
-    'minutes' : 'Minūtes',
-    'seconds' : 'Sekundes'
-
-  };
-
-  /* Create various aliases for convenience */
-
-  FlipClock.Lang['lv']      = FlipClock.Lang.Latvian;
-  FlipClock.Lang['lv-lv']   = FlipClock.Lang.Latvian;
-  FlipClock.Lang['latvian'] = FlipClock.Lang.Latvian;
-
-}(jQuery));
-(function($) {
-
-    /**
-     * FlipClock Dutch Language Pack
-     *
-     * This class will used to translate tokens into the Dutch language.
-     */
-
-    FlipClock.Lang.Dutch = {
-
-        'years'   : 'Jaren',
-        'months'  : 'Maanden',
-        'days'    : 'Dagen',
-        'hours'   : 'Uren',
-        'minutes' : 'Minuten',
-        'seconds' : 'Seconden'
-
-    };
-
-    /* Create various aliases for convenience */
-
-    FlipClock.Lang['nl']      = FlipClock.Lang.Dutch;
-    FlipClock.Lang['nl-be']   = FlipClock.Lang.Dutch;
-    FlipClock.Lang['dutch']   = FlipClock.Lang.Dutch;
-
-}(jQuery));
-
-(function($) {
-
-	/**
-	 * FlipClock Norwegian-Bokmål Language Pack
-	 *
-	 * This class will used to translate tokens into the Norwegian language.
-	 *	
-	 */
-
-	FlipClock.Lang.Norwegian = {
-
-		'years'   : 'År',
-		'months'  : 'Måneder',
-		'days'    : 'Dager',
-		'hours'   : 'Timer',
-		'minutes' : 'Minutter',
-		'seconds' : 'Sekunder'	
-
-	};
-
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['no']      = FlipClock.Lang.Norwegian;
-	FlipClock.Lang['nb']      = FlipClock.Lang.Norwegian;
-	FlipClock.Lang['no-nb']   = FlipClock.Lang.Norwegian;
-	FlipClock.Lang['norwegian'] = FlipClock.Lang.Norwegian;
-
-}(jQuery));
-
-(function($) {
-
-	/**
-	 * FlipClock Portuguese Language Pack
-	 *
-	 * This class will used to translate tokens into the Portuguese language.
-	 *
-	 */
-
-	FlipClock.Lang.Portuguese = {
-
-		'years'   : 'Anos',
-		'months'  : 'Meses',
-		'days'    : 'Dias',
-		'hours'   : 'Horas',
-		'minutes' : 'Minutos',
-		'seconds' : 'Segundos'
-
-	};
-
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['pt']         = FlipClock.Lang.Portuguese;
-	FlipClock.Lang['pt-br']      = FlipClock.Lang.Portuguese;
-	FlipClock.Lang['portuguese'] = FlipClock.Lang.Portuguese;
-
-}(jQuery));
-(function($) {
-
-  /**
-   * FlipClock Russian Language Pack
-   *
-   * This class will used to translate tokens into the Russian language.
-   *
-   */
-
-  FlipClock.Lang.Russian = {
-
-    'years'   : 'лет',
-    'months'  : 'месяцев',
-    'days'    : 'дней',
-    'hours'   : 'часов',
-    'minutes' : 'минут',
-    'seconds' : 'секунд'
-
-  };
-
-  /* Create various aliases for convenience */
-
-  FlipClock.Lang['ru']      = FlipClock.Lang.Russian;
-  FlipClock.Lang['ru-ru']   = FlipClock.Lang.Russian;
-  FlipClock.Lang['russian']  = FlipClock.Lang.Russian;
-
-}(jQuery));
-(function($) {
-		
-	/**
-	 * FlipClock Swedish Language Pack
-	 *
-	 * This class will used to translate tokens into the Swedish language.
-	 *	
-	 */
-	 
-	FlipClock.Lang.Swedish = {
-		
-		'years'   : 'År',
-		'months'  : 'Månader',
-		'days'    : 'Dagar',
-		'hours'   : 'Timmar',
-		'minutes' : 'Minuter',
-		'seconds' : 'Sekunder'	
-
-	};
-	
-	/* Create various aliases for convenience */
-
-	FlipClock.Lang['sv']      = FlipClock.Lang.Swedish;
-	FlipClock.Lang['sv-se']   = FlipClock.Lang.Swedish;
-	FlipClock.Lang['swedish'] = FlipClock.Lang.Swedish;
-
-}(jQuery));
-
 (function($) {
 		
 	/**

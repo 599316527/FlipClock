@@ -25,7 +25,7 @@
 
 		constructor: function(factory, options) {
 			this.base(factory, options);
-			this.doNotDigitize = options['doNotDigitize'] === true;
+			this.doNotSplit = options['doNotSplit'] === true;
 		},
 
 		/**
@@ -36,8 +36,8 @@
 			var t = this;
 			var children = this.factory.$el.find('ul');
 
-			time = time ? time : this.factory.time.getHourCounter(this.doNotDigitize);
-			var offsetRatio = this.doNotDigitize ? 1 : 2;
+			time = time ? time : this.factory.time.getHourCounter(this.doNotSplit);
+			var offsetRatio = this.doNotSplit ? 1 : 2;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -61,7 +61,7 @@
 
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getHourCounter(this.doNotDigitize);
+				time = this.factory.time.getHourCounter(this.doNotSplit);
 			}
 
 			this.autoIncrement();
