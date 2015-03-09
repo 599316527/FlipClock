@@ -944,84 +944,84 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-	
+
 	/**
-	 * The FlipClock List class is used to build the list used to create 
+	 * The FlipClock List class is used to build the list used to create
 	 * the card flip effect. This object fascilates selecting the correct
 	 * node by passing a specific digit.
 	 *
 	 * @param 	object  A FlipClock.Factory object
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
+	 * @param 	mixed   This is the digit used to set the clock. If an
+	 *				    object is passed, 0 will be used.
+	 * @param 	object  An object of properties to override the default
 	 */
-	 	
+
 	FlipClock.List = FlipClock.Base.extend({
-		
+
 		/**
 		 * The digit (0-9)
-		 */		
-		 
+		 */
+
 		digit: 0,
-		
+
 		/**
 		 * The CSS classes
-		 */		
-		 
+		 */
+
 		classes: {
 			active: 'flip-clock-active',
 			before: 'flip-clock-before',
-			flip: 'flip'	
+			flip: 'flip'
 		},
-				
+
 		/**
 		 * The parent FlipClock.Factory object
-		 */		
-		 
+		 */
+
 		factory: false,
-		
+
 		/**
 		 * The jQuery object
-		 */		
-		 
+		 */
+
 		$el: false,
 
 		/**
 		 * The jQuery object (deprecated)
-		 */		
-		 
+		 */
+
 		$obj: false,
-		
+
 		/**
 		 * The items in the list
-		 */		
-		 
+		 */
+
 		items: [],
-		
+
 		/**
 		 * The last digit
-		 */		
-		 
+		 */
+
 		lastDigit: 0,
-			
+
 		/**
 		 * Constructor
 		 *
 		 * @param  object  A FlipClock.Factory object
 		 * @param  int     An integer use to select the correct digit
-		 * @param  object  An object to override the default properties	 
+		 * @param  object  An object to override the default properties
 		 */
-		 
+
 		constructor: function(factory, digit, options) {
 			this.factory = factory;
 			this.digit = digit;
 			this.lastDigit = digit;
 			this.$el = this.createList();
-			
+
 			// Depcrated support of the $obj property.
 			this.$obj = this.$el;
 
@@ -1031,13 +1031,13 @@ var FlipClock;
 
 			this.factory.$el.append(this.$el);
 		},
-		
+
 		/**
 		 * Select the digit in the list
 		 *
-		 * @param  int  A digit 0-9	 
+		 * @param  int  A digit 0-9
 		 */
-		 
+
 		select: function(digit) {
 			if(typeof digit === "undefined") {
 				digit = this.digit;
@@ -1057,21 +1057,21 @@ var FlipClock;
 				$delete.remove();
 
 				this.lastDigit = this.digit;
-			}	
+			}
 		},
-		
+
 		/**
 		 * Adds the play class to the DOM object
 		 */
-		 		
+
 		play: function() {
 			this.$el.addClass(this.factory.classes.play);
 		},
-		
+
 		/**
-		 * Removes the play class to the DOM object 
+		 * Removes the play class to the DOM object
 		 */
-		 
+
 		stop: function() {
 			var t = this;
 
@@ -1079,11 +1079,11 @@ var FlipClock;
 				t.$el.removeClass(t.factory.classes.play);
 			}, this.factory.timer.interval);
 		},
-		
+
 		/**
-		 * Creates the list item HTML and returns as a string 
+		 * Creates the list item HTML and returns as a string
 		 */
-		 
+
 		createListItem: function(css, value) {
 			return [
 				'<li class="'+(css ? css : '')+'">',
@@ -1102,7 +1102,7 @@ var FlipClock;
 		},
 
 		/**
-		 * Append the list item to the parent DOM node 
+		 * Append the list item to the parent DOM node
 		 */
 
 		appendListItem: function(css, value) {
@@ -1112,9 +1112,9 @@ var FlipClock;
 		},
 
 		/**
-		 * Create the list of digits and appends it to the DOM object 
+		 * Create the list of digits and appends it to the DOM object
 		 */
-		 
+
 		createList: function() {
 
 			var lastDigit = this.getPrevDigit() ? this.getPrevDigit() : this.digit;
@@ -1125,7 +1125,7 @@ var FlipClock;
 					this.createListItem(this.classes.active, this.digit),
 				'</ul>'
 			].join(''));
-					
+
 			return html;
 		},
 
@@ -1138,8 +1138,8 @@ var FlipClock;
 		}
 
 	});
-	
-	
+
+
 }(jQuery));
 
 /*jshint smarttabs:true */
@@ -1199,39 +1199,39 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-			
+
 	/**
-	 * The FlipClock Time class is used to manage all the time 
+	 * The FlipClock Time class is used to manage all the time
 	 * calculations.
 	 *
 	 * @param 	object  A FlipClock.Factory object
-	 * @param 	mixed   This is the digit used to set the clock. If an 
-	 *				    object is passed, 0 will be used.	
-	 * @param 	object  An object of properties to override the default	
+	 * @param 	mixed   This is the digit used to set the clock. If an
+	 *				    object is passed, 0 will be used.
+	 * @param 	object  An object of properties to override the default
 	 */
-	 	
+
 	FlipClock.Time = FlipClock.Base.extend({
-		
+
 		/**
 		 * The time (in seconds) or a date object
-		 */		
-		 
+		 */
+
 		time: 0,
-		
+
 		/**
 		 * The parent FlipClock.Factory object
-		 */		
-		 
+		 */
+
 		factory: false,
-		
+
 		/**
 		 * The minimum number of digits the clock face must have
-		 */		
-		 
+		 */
+
 		minimumDigits: 0,
 
 		/**
@@ -1239,9 +1239,9 @@ var FlipClock;
 		 *
 		 * @param  object  A FlipClock.Factory object
 		 * @param  int     An integer use to select the correct digit
-		 * @param  object  An object to override the default properties	 
+		 * @param  object  An object to override the default properties
 		 */
-		 
+
 		constructor: function(factory, time, options) {
 			if(typeof options != "object") {
 				options = {};
@@ -1262,69 +1262,69 @@ var FlipClock;
 		/**
 		 * Convert a string or integer to an array of digits
 		 *
-		 * @param   mixed  String or Integer of digits	 
-		 * @return  array  An array of digits 
+		 * @param   mixed  String or Integer of digits
+		 * @return  array  An array of digits
 		 */
-		 
+
 		convertDigitsToArray: function(str) {
 			var data = [];
-			
+
 			str = str.toString();
-			
+
 			for(var x = 0;x < str.length; x++) {
 				if(str[x].match(/^\d*$/g)) {
-					data.push(str[x]);	
+					data.push(str[x]);
 				}
 			}
-			
+
 			return data;
 		},
-		
+
 		/**
 		 * Get a specific digit from the time integer
 		 *
-		 * @param   int    The specific digit to select from the time	 
+		 * @param   int    The specific digit to select from the time
 		 * @return  mixed  Returns FALSE if no digit is found, otherwise
-		 *				   the method returns the defined digit	 
+		 *				   the method returns the defined digit
 		 */
-		 
+
 		digit: function(i) {
 			var timeStr = this.toString();
 			var length  = timeStr.length;
-			
+
 			if(timeStr[length - i])	 {
 				return timeStr[length - i];
 			}
-			
+
 			return false;
 		},
 
 		/**
 		 * Formats any array of digits into a valid array of digits
 		 *
-		 * @param   mixed  An array of digits	 
-		 * @return  array  An array of digits 
+		 * @param   mixed  An array of digits
+		 * @return  array  An array of digits
 		 */
-		 
+
 		digitize: function(obj) {
 			var data = [];
 
 			$.each(obj, function(i, value) {
 				value = value.toString();
-				
+
 				if(value.length == 1) {
 					value = '0'+value;
 				}
-				
+
 				for(var x = 0; x < value.length; x++) {
 					data.push(value.charAt(x));
-				}				
+				}
 			});
 
 			if(data.length > this.minimumDigits) {
 				this.minimumDigits = data.length;
 			}
-			
+
 			if(this.minimumDigits > data.length) {
 				for(var x = data.length; x < this.minimumDigits; x++) {
 					data.unshift('0');
@@ -1333,7 +1333,7 @@ var FlipClock;
 
 			return data;
 		},
-		
+
 		/**
 		 * Gets a new Date object for the current time
 		 *
@@ -1347,14 +1347,14 @@ var FlipClock;
 
 			return new Date((new Date()).getTime() + this.getTimeSeconds() * 1000);
 		},
-		
+
 		/**
 		 * Gets a digitized daily counter
 		 *
 		 * @return  object  Returns a digitized object
 		 */
 
-		getDayCounter: function(includeSeconds) {
+		getDayCounter: function(includeSeconds, doNotDigitize) {
 			var digits = [
 				this.getDays(),
 				this.getHours(true),
@@ -1365,7 +1365,7 @@ var FlipClock;
 				digits.push(this.getSeconds(true));
 			}
 
-			return this.digitize(digits);
+			return !doNotDigitize ? this.digitize(digits) : digits;
 		},
 
 		/**
@@ -1374,67 +1374,67 @@ var FlipClock;
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
-		 
+
 		getDays: function(mod) {
 			var days = this.getTimeSeconds() / 60 / 60 / 24;
-			
+
 			if(mod) {
 				days = days % 7;
 			}
-			
+
 			return Math.floor(days);
 		},
-		
+
 		/**
 		 * Gets an hourly breakdown
 		 *
 		 * @return  object  Returns a digitized object
 		 */
-		 
-		getHourCounter: function() {
-			var obj = this.digitize([
+
+		getHourCounter: function(doNotDigitize) {
+			var obj = [
 				this.getHours(),
 				this.getMinutes(true),
 				this.getSeconds(true)
-			]);
-			
-			return obj;
+			];
+
+			return !doNotDigitize ? this.digitize(obj) : obj;
 		},
-		
+
 		/**
 		 * Gets an hourly breakdown
 		 *
 		 * @return  object  Returns a digitized object
 		 */
-		 
+
 		getHourly: function() {
 			return this.getHourCounter();
 		},
-		
+
 		/**
 		 * Gets number of hours
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
-		 
+
 		getHours: function(mod) {
 			var hours = this.getTimeSeconds() / 60 / 60;
-			
+
 			if(mod) {
-				hours = hours % 24;	
+				hours = hours % 24;
 			}
-			
+
 			return Math.floor(hours);
 		},
-		
+
 		/**
 		 * Gets the twenty-four hour time
 		 *
 		 * @return  object  returns a digitized object
 		 */
-		 
-		getMilitaryTime: function(date, showSeconds) {
+
+		getMilitaryTime: function(date, showSeconds, doNotDigitize) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -1445,52 +1445,52 @@ var FlipClock;
 
 			var data  = [
 				date.getHours(),
-				date.getMinutes()			
+				date.getMinutes()
 			];
 
 			if(showSeconds === true) {
 				data.push(date.getSeconds());
 			}
 
-			return this.digitize(data);
+			return !doNotDigitize ? this.digitize(data) : data;
 		},
-				
+
 		/**
 		 * Gets number of minutes
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
-		 
+
 		getMinutes: function(mod) {
 			var minutes = this.getTimeSeconds() / 60;
-			
+
 			if(mod) {
 				minutes = minutes % 60;
 			}
-			
+
 			return Math.floor(minutes);
 		},
-		
+
 		/**
 		 * Gets a minute breakdown
 		 */
-		 
-		getMinuteCounter: function() {
-			var obj = this.digitize([
+
+		getMinuteCounter: function(doNotDigitize) {
+			var obj = [
 				this.getMinutes(),
 				this.getSeconds(true)
-			]);
+			];
 
-			return obj;
+			return !doNotDigitize ? this.digitize(obj) : obj;
 		},
-		
+
 		/**
 		 * Gets time count in seconds regardless of if targetting date or not.
 		 *
 		 * @return  int   Returns a floored integer
 		 */
-		 
+
 		getTimeSeconds: function(date) {
 			if(!date) {
 				date = new Date();
@@ -1506,14 +1506,14 @@ var FlipClock;
 				return this.time;
 			}
 		},
-		
+
 		/**
 		 * Gets the current twelve hour time
 		 *
 		 * @return  object  Returns a digitized object
 		 */
-		 
-		getTime: function(date, showSeconds) {
+
+		getTime: function(date, showSeconds, doNotDigitize) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -1522,33 +1522,33 @@ var FlipClock;
 				date = this.getDateObject();
 			}
 
-			console.log(date);
+			// console.log(date);
 
-			
+
 			var hours = date.getHours();
 			var merid = hours > 12 ? 'PM' : 'AM';
 			var data   = [
 				hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours),
-				date.getMinutes()			
+				date.getMinutes()
 			];
 
 			if(showSeconds === true) {
 				data.push(date.getSeconds());
 			}
 
-			return this.digitize(data);
+			return !doNotDigitize ? this.digitize(data) : data;
 		},
-		
+
 		/**
 		 * Gets number of seconds
 		 *
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a ceiled integer
 		 */
-		 
+
 		getSeconds: function(mod) {
 			var seconds = this.getTimeSeconds();
-			
+
 			if(mod) {
 				if(seconds == 60) {
 					seconds = 0;
@@ -1557,7 +1557,7 @@ var FlipClock;
 					seconds = seconds % 60;
 				}
 			}
-			
+
 			return Math.ceil(seconds);
 		},
 
@@ -1567,30 +1567,30 @@ var FlipClock;
 		 * @param   bool  Should perform a modulus? If not sent, then no.
 		 * @return  int   Retuns a floored integer
 		 */
-		 
+
 		getWeeks: function(mod) {
 			var weeks = this.getTimeSeconds() / 60 / 60 / 24 / 7;
-			
+
 			if(mod) {
 				weeks = weeks % 52;
 			}
-			
+
 			return Math.floor(weeks);
 		},
-		
+
 		/**
 		 * Removes a specific number of leading zeros from the array.
 		 * This method prevents you from removing too many digits, even
 		 * if you try.
 		 *
-		 * @param   int    Total number of digits to remove 
-		 * @return  array  An array of digits 
+		 * @param   int    Total number of digits to remove
+		 * @return  array  An array of digits
 		 */
-		 
+
 		removeLeadingZeros: function(totalDigits, digits) {
 			var total    = 0;
 			var newArray = [];
-			
+
 			$.each(digits, function(i, digit) {
 				if(i < totalDigits) {
 					total += parseInt(digits[i], 10);
@@ -1599,11 +1599,11 @@ var FlipClock;
 					newArray.push(digits[i]);
 				}
 			});
-			
+
 			if(total === 0) {
 				return newArray;
 			}
-			
+
 			return digits;
 		},
 
@@ -1648,25 +1648,25 @@ var FlipClock;
 		subSecond: function() {
 			this.subSeconds(1);
 		},
-		
+
 		/**
 		 * Converts the object to a human readable string
 		 */
-		 
+
 		toString: function() {
 			return this.getTimeSeconds().toString();
 		}
-		
+
 		/*
 		getYears: function() {
 			return Math.floor(this.time / 60 / 60 / 24 / 7 / 52);
 		},
-		
+
 		getDecades: function() {
 			return Math.floor(this.getWeeks() / 10);
 		}*/
 	});
-	
+
 }(jQuery));
 
 /*jshint smarttabs:true */
@@ -2091,6 +2091,7 @@ var FlipClock;
 
 		constructor: function(factory, options) {
 			this.base(factory, options);
+			this.doNotDigitize = options['doNotDigitize'] === true;
 		},
 
 		/**
@@ -2102,7 +2103,8 @@ var FlipClock;
 			var children = this.factory.$el.find('ul');
 			var offset = 0;
 
-			time = time ? time : this.factory.time.getDayCounter(this.showSeconds);
+			time = time ? time : this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
+			var offsetRatio = this.doNotDigitize ? 1 : 2;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -2111,16 +2113,16 @@ var FlipClock;
 			}
 
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
+				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 1 * offsetRatio].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4 + offset].$el);
-			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 6 + offset].$el);
-			$(this.createDivider('Days', true)).insertBefore(this.lists[0].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 2 * offsetRatio + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 3 * offsetRatio + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.lists[0 * offsetRatio].$el);
 
 			this.base();
 		},
@@ -2131,7 +2133,7 @@ var FlipClock;
 
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getDayCounter(this.showSeconds);
+				time = this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
 			}
 
 			this.autoIncrement();
@@ -2142,72 +2144,75 @@ var FlipClock;
 	});
 
 }(jQuery));
+
 (function($) {
-			
+
 	/**
 	 * Hourly Counter Clock Face
 	 *
 	 * This class will generate an hourly counter for FlipClock.js. An
 	 * hour counter will track hours, minutes, and seconds. If number of
-	 * available digits is exceeded in the count, a new digit will be 
+	 * available digits is exceeded in the count, a new digit will be
 	 * created.
 	 *
 	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
+	 * @param  object  An object of properties to override the default
 	 */
-	 
+
 	FlipClock.HourlyCounterFace = FlipClock.Face.extend({
-			
+
 		// clearExcessDigits: true,
 
 		/**
 		 * Constructor
 		 *
 		 * @param  object  The parent FlipClock.Factory object
-		 * @param  object  An object of properties to override the default	
+		 * @param  object  An object of properties to override the default
 		 */
-		 
+
 		constructor: function(factory, options) {
 			this.base(factory, options);
+			this.doNotDigitize = options['doNotDigitize'] === true;
 		},
-		
+
 		/**
 		 * Build the clock face
 		 */
-		
+
 		build: function(excludeHours, time) {
 			var t = this;
 			var children = this.factory.$el.find('ul');
-			
-			time = time ? time : this.factory.time.getHourCounter();
-			
+
+			time = time ? time : this.factory.time.getHourCounter(this.doNotDigitize);
+			var offsetRatio = this.doNotDigitize ? 1 : 2;
+
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
 					t.createList(digit);
 				});
 			}
-			
-			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4].$el);
-			
+
+			$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 1 * offsetRatio].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 2 * offsetRatio].$el);
+
 			if(!excludeHours) {
-				$(this.createDivider('Hours', true)).insertBefore(this.lists[0].$el);
+				$(this.createDivider('Hours', true)).insertBefore(this.lists[0 * offsetRatio].$el);
 			}
-			
+
 			this.base();
 		},
-		
+
 		/**
 		 * Flip the clock face
 		 */
-		 
+
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getHourCounter();
-			}	
+				time = this.factory.time.getHourCounter(this.doNotDigitize);
+			}
 
 			this.autoIncrement();
-		
+
 			this.base(time, doNotAddPlayClass);
 		},
 
@@ -2220,10 +2225,11 @@ var FlipClock;
 
 			this.dividers[0].insertAfter(this.dividers[0].next());
 		}
-		
+
 	});
-	
+
 }(jQuery));
+
 (function($) {
 		
 	/**

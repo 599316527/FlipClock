@@ -25,6 +25,7 @@
 
 		constructor: function(factory, options) {
 			this.base(factory, options);
+			this.doNotDigitize = options['doNotDigitize'] === true;
 		},
 
 		/**
@@ -36,7 +37,8 @@
 			var children = this.factory.$el.find('ul');
 			var offset = 0;
 
-			time = time ? time : this.factory.time.getDayCounter(this.showSeconds);
+			time = time ? time : this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
+			var offsetRatio = this.doNotDigitize ? 1 : 2;
 
 			if(time.length > children.length) {
 				$.each(time, function(i, digit) {
@@ -45,16 +47,16 @@
 			}
 
 			if(this.showSeconds) {
-				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 2].$el);
+				$(this.createDivider('Seconds')).insertBefore(this.lists[this.lists.length - 1 * offsetRatio].$el);
 			}
 			else
 			{
 				offset = 2;
 			}
 
-			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 4 + offset].$el);
-			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 6 + offset].$el);
-			$(this.createDivider('Days', true)).insertBefore(this.lists[0].$el);
+			$(this.createDivider('Minutes')).insertBefore(this.lists[this.lists.length - 2 * offsetRatio + offset].$el);
+			$(this.createDivider('Hours')).insertBefore(this.lists[this.lists.length - 3 * offsetRatio + offset].$el);
+			$(this.createDivider('Days', true)).insertBefore(this.lists[0 * offsetRatio].$el);
 
 			this.base();
 		},
@@ -65,7 +67,7 @@
 
 		flip: function(time, doNotAddPlayClass) {
 			if(!time) {
-				time = this.factory.time.getDayCounter(this.showSeconds);
+				time = this.factory.time.getDayCounter(this.showSeconds, this.doNotDigitize);
 			}
 
 			this.autoIncrement();
