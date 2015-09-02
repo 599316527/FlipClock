@@ -114,7 +114,7 @@
 		 * @return  array  An array of digits
 		 */
 
-		digitize: function(obj) {
+		digitize: function(obj, doNotSplit) {
 			var data = [];
 
 			$.each(obj, function(i, value) {
@@ -124,9 +124,14 @@
 					value = '0'+value;
 				}
 
-				for(var x = 0; x < value.length; x++) {
-					data.push(value.charAt(x));
+				if (doNotSplit) {
+					data.push(value);
+				} else {
+					for(var x = 0; x < value.length; x++) {
+						data.push(value.charAt(x));
+					}
 				}
+
 			});
 
 			if(data.length > this.minimumDigits) {
@@ -162,7 +167,7 @@
 		 * @return  object  Returns a digitized object
 		 */
 
-		getDayCounter: function(includeSeconds, doNotDigitize) {
+		getDayCounter: function(includeSeconds, doNotSplit) {
 			var digits = [
 				this.getDays(),
 				this.getHours(true),
@@ -173,7 +178,7 @@
 				digits.push(this.getSeconds(true));
 			}
 
-			return !doNotDigitize ? this.digitize(digits) : digits;
+			return this.digitize(digits, doNotSplit);
 		},
 
 		/**
@@ -199,14 +204,14 @@
 		 * @return  object  Returns a digitized object
 		 */
 
-		getHourCounter: function(doNotDigitize) {
+		getHourCounter: function(doNotSplit) {
 			var obj = [
 				this.getHours(),
 				this.getMinutes(true),
 				this.getSeconds(true)
 			];
 
-			return !doNotDigitize ? this.digitize(obj) : obj;
+			return this.digitize(obj, doNotSplit);
 		},
 
 		/**
@@ -242,7 +247,7 @@
 		 * @return  object  returns a digitized object
 		 */
 
-		getMilitaryTime: function(date, showSeconds, doNotDigitize) {
+		getMilitaryTime: function(date, showSeconds, doNotSplit) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -260,7 +265,7 @@
 				data.push(date.getSeconds());
 			}
 
-			return !doNotDigitize ? this.digitize(data) : data;
+			return this.digitize(data, doNotSplit);
 		},
 
 		/**
@@ -284,13 +289,13 @@
 		 * Gets a minute breakdown
 		 */
 
-		getMinuteCounter: function(doNotDigitize) {
+		getMinuteCounter: function(doNotSplit) {
 			var obj = [
 				this.getMinutes(),
 				this.getSeconds(true)
 			];
 
-			return !doNotDigitize ? this.digitize(obj) : obj;
+			return this.digitize(obj, doNotSplit);
 		},
 
 		/**
@@ -321,7 +326,7 @@
 		 * @return  object  Returns a digitized object
 		 */
 
-		getTime: function(date, showSeconds, doNotDigitize) {
+		getTime: function(date, showSeconds, doNotSplit) {
 			if(typeof showSeconds === "undefined") {
 				showSeconds = true;
 			}
@@ -344,7 +349,7 @@
 				data.push(date.getSeconds());
 			}
 
-			return !doNotDigitize ? this.digitize(data) : data;
+			return this.digitize(data, doNotSplit);
 		},
 
 		/**

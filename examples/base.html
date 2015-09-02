@@ -12,7 +12,7 @@
 
 	<script type="text/javascript">
 		var clock;
-		
+
 		$(document).ready(function() {
 			var clock;
 
@@ -23,15 +23,16 @@
 		        	stop: function() {
 		        		$('.message').html('The clock has stopped!')
 		        	}
-		        }
+		        },
+		        doNotSplit: true
 		    });
-				    
+
 		    clock.setTime(220880);
 		    clock.setCountdown(true);
 		    clock.start();
 
 		});
 	</script>
-	
+
 	</body>
 </html>
