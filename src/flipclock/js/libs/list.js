@@ -36,9 +36,13 @@
 		 */
 
 		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			flip: 'flip'
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			flip: 'ec-flip',
+			up: 'ec-up',
+			down: 'ec-down',
+			inner: 'ec-inner',
+			shadow: 'ec-shadow'
 		},
 
 		/**
@@ -151,13 +155,13 @@
 			return [
 				'<li class="'+(css ? css : '')+'">',
 					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
+						'<div class="'+this.classes.up+'">',
+							'<div class="'+this.classes.shadow+'"></div>',
+							'<div class="'+this.classes.inner+'">'+(value ? value : '')+'</div>',
 						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
+						'<div class="'+this.classes.down+'">',
+							'<div class="'+this.classes.shadow+'"></div>',
+							'<div class="'+this.classes.inner+'">'+(value ? value : '')+'</div>',
 						'</div>',
 					'</a>',
 				'</li>'

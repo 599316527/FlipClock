@@ -7,77 +7,77 @@
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-	
+
 	/**
 	 * The FlipClock Face class is the base class in which to extend
 	 * all other FlockClock.Face classes.
 	 *
 	 * @param 	object  The parent FlipClock.Factory object
-	 * @param 	object  An object of properties to override the default	
+	 * @param 	object  An object of properties to override the default
 	 */
-	 
+
 	FlipClock.Face = FlipClock.Base.extend({
-		
+
 		/**
 		 * Sets whether or not the clock should start upon instantiation
 		 */
-		 
+
 		autoStart: true,
 
 		/**
 		 * An array of jQuery objects used for the dividers (the colons)
 		 */
-		 
+
 		dividers: [],
 
 		/**
 		 * An array of FlipClock.List objects
-		 */		
-		 
+		 */
+
 		factory: false,
-		
+
 		/**
 		 * An array of FlipClock.List objects
-		 */		
-		 
+		 */
+
 		lists: [],
 
 		/**
 		 * Constructor
 		 *
 		 * @param 	object  The parent FlipClock.Factory object
-		 * @param 	object  An object of properties to override the default	
+		 * @param 	object  An object of properties to override the default
 		 */
-		 
+
 		constructor: function(factory, options) {
 			this.dividers = [];
 			this.lists = [];
 			this.base(options);
 			this.factory = factory;
 		},
-		
+
 		/**
 		 * Build the clock face
 		 */
-		 
+
 		build: function() {
 			if(this.autoStart) {
 				this.start();
 			}
 		},
-		
+
 		/**
 		 * Creates a jQuery object used for the digit divider
 		 *
 		 * @param	mixed 	The divider label text
-		 * @param	mixed	Set true to exclude the dots in the divider. 
+		 * @param	mixed	Set true to exclude the dots in the divider.
 		 *					If not set, is false.
 		 */
-		 
+
 		createDivider: function(label, css, excludeDots) {
 			if(typeof css == "boolean" || !css) {
 				excludeDots = css;
@@ -85,37 +85,38 @@
 			}
 
 			var dots = [
-				'<span class="'+this.factory.classes.dot+' top"></span>',
-				'<span class="'+this.factory.classes.dot+' bottom"></span>'
+				'<span class="'+this.factory.classes.dot+' ec-top"></span>',
+				'<span class="'+this.factory.classes.dot+' ec-bottom"></span>'
 			].join('');
 
 			if(excludeDots) {
-				dots = '';	
+				dots = '';
 			}
 
 			label = this.factory.localize(label);
+			css = 'ec-' + css.toLowerCase();
 
 			var html = [
 				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
 					'<span class="'+this.factory.classes.label+'">'+(label ? label : '')+'</span>',
 					dots,
 				'</span>'
-			];	
-			
+			];
+
 			var $html = $(html.join(''));
 
 			this.dividers.push($html);
 
 			return $html;
 		},
-		
+
 		/**
 		 * Creates a FlipClock.List object and appends it to the DOM
 		 *
 		 * @param	mixed 	The digit to select in the list
 		 * @param	object  An object to override the default properties
 		 */
-		 
+
 		createList: function(digit, options) {
 			if(typeof digit === "object") {
 				options = digit;
@@ -123,19 +124,19 @@
 			}
 
 			var obj = new FlipClock.List(this.factory, digit, options);
-		
+
 			this.lists.push(obj);
 
 			return obj;
 		},
-		
+
 		/**
 		 * Triggers when the clock is reset
 		 */
 
 		reset: function() {
 			this.factory.time = new FlipClock.Time(
-				this.factory, 
+				this.factory,
 				this.factory.original ? Math.round(this.factory.original) : 0,
 				{
 					minimumDigits: this.factory.minimumDigits
@@ -156,7 +157,7 @@
 		/**
 		 * Add a digit to the clock face
 		 */
-		 
+
 		addDigit: function(digit) {
 			var obj = this.createList(digit, {
 				classes: {
@@ -168,23 +169,23 @@
 
 			this.appendDigitToClock(obj);
 		},
-		
+
 		/**
 		 * Triggers when the clock is started
 		 */
-		 
+
 		start: function() {},
-		
+
 		/**
 		 * Triggers when the time on the clock stops
 		 */
-		 
+
 		stop: function() {},
-		
+
 		/**
 		 * Auto increments/decrements the value of the clock face
 		 */
-		 
+
 		autoIncrement: function() {
 			if(!this.factory.countdown) {
 				this.increment();
@@ -197,7 +198,7 @@
 		/**
 		 * Increments the value of the clock face
 		 */
-		 
+
 		increment: function() {
 			this.factory.time.addSecond();
 		},
@@ -214,11 +215,11 @@
 				this.factory.time.subSecond();
 			}
 		},
-			
+
 		/**
 		 * Triggers when the numbers on the clock flip
 		 */
-		 
+
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
@@ -227,17 +228,17 @@
 
 				if(list) {
 					if(!doNotAddPlayClass && digit != list.digit) {
-						list.play();	
+						list.play();
 					}
 
 					list.select(digit);
-				}	
+				}
 				else {
 					t.addDigit(digit);
 				}
 			});
 		}
-					
+
 	});
-	
+
 }(jQuery));

@@ -2,50 +2,50 @@
 /* Get the bourbon mixin from http://bourbon.io */
 
 /* Reset */
-.flip-clock-wrapper * {
+.ec-flip-wrapper * {
     margin: 0;
     padding: 0;
     line-height: normal;
     @include box-sizing(border-box);
 }
 
-.flip-clock-wrapper a {
+.ec-flip-wrapper a {
     cursor: pointer;
     text-decoration: none;
     color: #ccc;
 }
 
-.flip-clock-wrapper a:hover {
+.ec-flip-wrapper a:hover {
     color: #fff;
 }
 
-.flip-clock-wrapper ul {
+.ec-flip-wrapper ul {
     list-style: none
 }
 
-.flip-clock-wrapper.clearfix:before,
-.flip-clock-wrapper.clearfix:after {
+.ec-flip-wrapper.ec-clearfix:before,
+.ec-flip-wrapper.ec-clearfix:after {
     content: " ";
     display: table;
 }
 
-.flip-clock-wrapper.clearfix:after {
+.ec-flip-wrapper.ec-clearfix:after {
     clear: both;
 }
 
-.flip-clock-wrapper.clearfix {
+.ec-flip-wrapper.ec-clearfix {
     *zoom: 1;
 }
 
 /* Main */
 
-.flip-clock-wrapper {
+.ec-flip-wrapper {
     min-height: 100%;
     font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
     -webkit-user-select: none;
 }
 
-.flip-clock-meridium {
+.ec-flip-meridium {
 	background: none;
 	box-shadow: 0 0 0 !important;
 	font-size: 36px !important;
@@ -54,7 +54,7 @@
 }
 
 
-.flip-clock-wrapper {
+.ec-flip-wrapper {
     text-align: center;
     position: relative;
     width: 100%;
@@ -63,7 +63,7 @@
 
 /* Skeleton */
 
-.flip-clock-wrapper ul {
+.ec-flip-wrapper ul {
     position: relative;
     float: left;
     margin: 5px;
@@ -77,7 +77,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
 }
 
-.flip-clock-wrapper ul li {
+.ec-flip-wrapper ul li {
     z-index: 1;
     position: absolute;
     left: 0;
@@ -87,11 +87,11 @@
 	line-height: 87px;
 }
 
-.flip-clock-wrapper ul li:first-child {
+.ec-flip-wrapper ul li:first-child {
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a {
+.ec-flip-wrapper ul li a {
     display: block;
     height: 100%;
     @include perspective(200px);
@@ -99,7 +99,7 @@
     overflow: visible !important;
 }
 
-.flip-clock-wrapper ul li a div {
+.ec-flip-wrapper ul li a div {
     z-index: 1;
     position: absolute;
     left: 0;
@@ -108,19 +108,19 @@
     overflow: hidden;
 }
 
-.flip-clock-wrapper ul li a div .shadow {
+.ec-flip-wrapper ul li a div .ec-shadow {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 2;
 }
 
-.flip-clock-wrapper ul li a div.up {
+.ec-flip-wrapper ul li a div.ec-up {
     @include transform-origin(50% 100%);
     top: 0;
 }
 
-.flip-clock-wrapper ul li a div.up:after {
+.ec-flip-wrapper ul li a div.ec-up:after {
   content: "";
   position:absolute;
   top:44px;
@@ -132,12 +132,12 @@
   background-color: rgba(0,0,0,.4);
 }
 
-.flip-clock-wrapper ul li a div.down {
+.ec-flip-wrapper ul li a div.ec-down {
     @include transform-origin(50% 0);
     bottom: 0;
 }
 
-.flip-clock-wrapper ul li a div div.inn {
+.ec-flip-wrapper ul li a div div.ec-inn {
     position: absolute;
     left: 0;
     z-index: 1;
@@ -151,27 +151,27 @@
     font-size: 70px;
 }
 
-.flip-clock-wrapper ul li a div.up div.inn {
+.ec-flip-wrapper ul li a div.ec-up div.ec-inn {
     top: 0;
 
 }
 
-.flip-clock-wrapper ul li a div.down div.inn {
+.ec-flip-wrapper ul li a div.ec-down div.ec-inn {
     bottom: 0;
 }
 
 /* PLAY */
 
-.flip-clock-wrapper ul.play li.flip-clock-before {
+.ec-flip-wrapper ul.ec-play li.ec-flip-before {
     z-index: 3;
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active {
+.ec-flip-wrapper ul.ec-play li.ec-flip-active {
     @include animation(asd .5s .5s linear both);
     z-index: 2;
 }
 
-.flip-clock-divider {
+.ec-flip-divider {
 	float: left;
 	display: inline-block;
 	position: relative;
@@ -179,9 +179,9 @@
 	height: 100px;
 }
 
-.flip-clock-divider:first-child { width: 0; }
+.ec-flip-divider:first-child { width: 0; }
 
-.flip-clock-dot {
+.ec-flip-dot {
 	display: block;
 	background: rgb(50, 52, 52);
 	width: 10px;
@@ -191,7 +191,7 @@
 	box-shadow: 0 0 5px rgba(0, 0, 0, .5);
 }
 
-.flip-clock-divider .flip-clock-label {
+.ec-flip-divider .ec-flip-label {
 	position: absolute;
 	top: -1.5em;
 	right: -86px;
@@ -199,14 +199,14 @@
 	text-shadow: none;
 }
 
-.flip-clock-divider.minutes .flip-clock-label { right: -88px; }
-.flip-clock-divider.seconds .flip-clock-label { right: -91px; }
+.ec-flip-divider.minutes .ec-flip-label { right: -88px; }
+.ec-flip-divider.seconds .ec-flip-label { right: -91px; }
 
-.flip-clock-dot.top {
+.ec-flip-dot.ec-top {
 	top: 30px;
 }
 
-.flip-clock-dot.bottom {
+.ec-flip-dot.ec-bottom {
 	bottom: 30px;
 }
 
@@ -222,7 +222,7 @@
   }
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active .down {
+.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-down {
     z-index: 2;
     @include animation(turn .5s .5s linear both);
 }
@@ -236,7 +236,7 @@
   }
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-before .up {
+.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-up {
     z-index: 2;
     @include animation(turn2 .5s linear both);
 }
@@ -250,53 +250,53 @@
   }
 }
 
-.flip-clock-wrapper ul li.flip-clock-active { z-index: 3; }
+.ec-flip-wrapper ul li.ec-flip-active { z-index: 3; }
 
 /* SHADOW */
 
-.flip-clock-wrapper ul.play li.flip-clock-before .up .shadow {
+.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-up .ec-shadow {
     background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
     background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    @include animation(show .5s linear both);
+    @include animation(ec-show .5s linear both);
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active .up .shadow {
+.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-up .ec-shadow {
     background: -moz-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, .1)), color-stop(100%, rgba(0, 0, 0, 1)));
     background: linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -o-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: -ms-linear-gradient(top, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
-    @include animation(hide .5s .3s linear both);
+    @include animation(ec-hide .5s .3s linear both);
 }
 
 /*DOWN*/
 
-.flip-clock-wrapper ul.play li.flip-clock-before .down .shadow {
+.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-down .ec-shadow {
     background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
     background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    @include animation(show .5s linear both);
+    @include animation(ec-show .5s linear both);
 }
 
-.flip-clock-wrapper ul.play li.flip-clock-active .down .shadow {
+.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-down .ec-shadow {
     background: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 1)), color-stop(100%, rgba(0, 0, 0, .1)));
     background: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
-    @include animation(hide .5s .3s linear both);
+    @include animation(ec-hide .5s .3s linear both);
 }
 
-@include keyframes(show) {
+@include keyframes(ec-show) {
   0% {
     opacity: 0;
   }
@@ -305,7 +305,7 @@
   }
 }
 
-@include keyframes(hide) {
+@include keyframes(ec-hide) {
   0% {
     opacity: 1;
   }

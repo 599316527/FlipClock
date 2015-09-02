@@ -147,7 +147,7 @@ Base = Base.extend({
 /*jshint smarttabs:true */
 
 var FlipClock;
-	
+
 /**
  * FlipClock.js
  *
@@ -155,19 +155,19 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-	
+
 	/**
 	 * FlipFlock Helper
 	 *
 	 * @param  object  A jQuery object or CSS select
 	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
+	 * @param  object  An object of properties to override the default
 	 */
-	 
+
 	FlipClock = function(obj, digit, options) {
 		if(digit instanceof Object && digit instanceof Date === false) {
 			options = digit;
@@ -182,36 +182,36 @@ var FlipClock;
 	 */
 
 	FlipClock.Lang = {};
-	
+
 	/**
 	 * The Base FlipClock class is used to extend all other FlipFlock
 	 * classes. It handles the callbacks and the basic setters/getters
-	 *	
+	 *
 	 * @param 	object  An object of the default properties
-	 * @param 	object  An object of properties to override the default	
+	 * @param 	object  An object of properties to override the default
 	 */
 
 	FlipClock.Base = Base.extend({
-		
+
 		/**
 		 * Build Date
 		 */
-		 
-		buildDate: '2014-12-12',
-		
+
+		buildDate: '2015-09-02',
+
 		/**
 		 * Version
 		 */
-		 
-		version: '0.7.7',
-		
+
+		version: '-1',
+
 		/**
 		 * Sets the default options
 		 *
 		 * @param	object 	The default options
 		 * @param	object 	The override options
 		 */
-		 
+
 		constructor: function(_default, options) {
 			if(typeof _default !== "object") {
 				_default = {};
@@ -221,83 +221,83 @@ var FlipClock;
 			}
 			this.setOptions($.extend(true, {}, _default, options));
 		},
-		
+
 		/**
 		 * Delegates the callback to the defined method
 		 *
 		 * @param	object 	The default options
 		 * @param	object 	The override options
 		 */
-		 
+
 		callback: function(method) {
 		 	if(typeof method === "function") {
 				var args = [];
-								
+
 				for(var x = 1; x <= arguments.length; x++) {
 					if(arguments[x]) {
 						args.push(arguments[x]);
 					}
 				}
-				
+
 				method.apply(this, args);
 			}
 		},
-		 
+
 		/**
 		 * Log a string into the console if it exists
 		 *
 		 * @param 	string 	The name of the option
 		 * @return	mixed
-		 */		
-		 
+		 */
+
 		log: function(str) {
 			if(window.console && console.log) {
 				console.log(str);
 			}
 		},
-		 
+
 		/**
 		 * Get an single option value. Returns false if option does not exist
 		 *
 		 * @param 	string 	The name of the option
 		 * @return	mixed
-		 */		
-		 
+		 */
+
 		getOption: function(index) {
 			if(this[index]) {
 				return this[index];
 			}
 			return false;
 		},
-		
+
 		/**
 		 * Get all options
 		 *
 		 * @return	bool
-		 */		
-		 
+		 */
+
 		getOptions: function() {
 			return this;
 		},
-		
+
 		/**
 		 * Set a single option value
 		 *
 		 * @param 	string 	The name of the option
 		 * @param 	mixed 	The value of the option
-		 */		
-		 
+		 */
+
 		setOption: function(index, value) {
 			this[index] = value;
 		},
-		
+
 		/**
 		 * Set a multiple options by passing a JSON object
 		 *
 		 * @param 	object 	The object with the options
 		 * @param 	mixed 	The value of the option
-		 */		
-		
+		 */
+
 		setOptions: function(options) {
 			for(var key in options) {
 	  			if(typeof options[key] !== "undefined") {
@@ -305,9 +305,9 @@ var FlipClock;
 		  		}
 		  	}
 		}
-		
+
 	});
-	
+
 }(jQuery));
 
 /*jshint smarttabs:true */
@@ -319,77 +319,77 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-	
+
 	/**
 	 * The FlipClock Face class is the base class in which to extend
 	 * all other FlockClock.Face classes.
 	 *
 	 * @param 	object  The parent FlipClock.Factory object
-	 * @param 	object  An object of properties to override the default	
+	 * @param 	object  An object of properties to override the default
 	 */
-	 
+
 	FlipClock.Face = FlipClock.Base.extend({
-		
+
 		/**
 		 * Sets whether or not the clock should start upon instantiation
 		 */
-		 
+
 		autoStart: true,
 
 		/**
 		 * An array of jQuery objects used for the dividers (the colons)
 		 */
-		 
+
 		dividers: [],
 
 		/**
 		 * An array of FlipClock.List objects
-		 */		
-		 
+		 */
+
 		factory: false,
-		
+
 		/**
 		 * An array of FlipClock.List objects
-		 */		
-		 
+		 */
+
 		lists: [],
 
 		/**
 		 * Constructor
 		 *
 		 * @param 	object  The parent FlipClock.Factory object
-		 * @param 	object  An object of properties to override the default	
+		 * @param 	object  An object of properties to override the default
 		 */
-		 
+
 		constructor: function(factory, options) {
 			this.dividers = [];
 			this.lists = [];
 			this.base(options);
 			this.factory = factory;
 		},
-		
+
 		/**
 		 * Build the clock face
 		 */
-		 
+
 		build: function() {
 			if(this.autoStart) {
 				this.start();
 			}
 		},
-		
+
 		/**
 		 * Creates a jQuery object used for the digit divider
 		 *
 		 * @param	mixed 	The divider label text
-		 * @param	mixed	Set true to exclude the dots in the divider. 
+		 * @param	mixed	Set true to exclude the dots in the divider.
 		 *					If not set, is false.
 		 */
-		 
+
 		createDivider: function(label, css, excludeDots) {
 			if(typeof css == "boolean" || !css) {
 				excludeDots = css;
@@ -397,37 +397,38 @@ var FlipClock;
 			}
 
 			var dots = [
-				'<span class="'+this.factory.classes.dot+' top"></span>',
-				'<span class="'+this.factory.classes.dot+' bottom"></span>'
+				'<span class="'+this.factory.classes.dot+' ec-top"></span>',
+				'<span class="'+this.factory.classes.dot+' ec-bottom"></span>'
 			].join('');
 
 			if(excludeDots) {
-				dots = '';	
+				dots = '';
 			}
 
 			label = this.factory.localize(label);
+			css = 'ec-' + css.toLowerCase();
 
 			var html = [
 				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
 					'<span class="'+this.factory.classes.label+'">'+(label ? label : '')+'</span>',
 					dots,
 				'</span>'
-			];	
-			
+			];
+
 			var $html = $(html.join(''));
 
 			this.dividers.push($html);
 
 			return $html;
 		},
-		
+
 		/**
 		 * Creates a FlipClock.List object and appends it to the DOM
 		 *
 		 * @param	mixed 	The digit to select in the list
 		 * @param	object  An object to override the default properties
 		 */
-		 
+
 		createList: function(digit, options) {
 			if(typeof digit === "object") {
 				options = digit;
@@ -435,19 +436,19 @@ var FlipClock;
 			}
 
 			var obj = new FlipClock.List(this.factory, digit, options);
-		
+
 			this.lists.push(obj);
 
 			return obj;
 		},
-		
+
 		/**
 		 * Triggers when the clock is reset
 		 */
 
 		reset: function() {
 			this.factory.time = new FlipClock.Time(
-				this.factory, 
+				this.factory,
 				this.factory.original ? Math.round(this.factory.original) : 0,
 				{
 					minimumDigits: this.factory.minimumDigits
@@ -468,7 +469,7 @@ var FlipClock;
 		/**
 		 * Add a digit to the clock face
 		 */
-		 
+
 		addDigit: function(digit) {
 			var obj = this.createList(digit, {
 				classes: {
@@ -480,23 +481,23 @@ var FlipClock;
 
 			this.appendDigitToClock(obj);
 		},
-		
+
 		/**
 		 * Triggers when the clock is started
 		 */
-		 
+
 		start: function() {},
-		
+
 		/**
 		 * Triggers when the time on the clock stops
 		 */
-		 
+
 		stop: function() {},
-		
+
 		/**
 		 * Auto increments/decrements the value of the clock face
 		 */
-		 
+
 		autoIncrement: function() {
 			if(!this.factory.countdown) {
 				this.increment();
@@ -509,7 +510,7 @@ var FlipClock;
 		/**
 		 * Increments the value of the clock face
 		 */
-		 
+
 		increment: function() {
 			this.factory.time.addSecond();
 		},
@@ -526,11 +527,11 @@ var FlipClock;
 				this.factory.time.subSecond();
 			}
 		},
-			
+
 		/**
 		 * Triggers when the numbers on the clock flip
 		 */
-		 
+
 		flip: function(time, doNotAddPlayClass) {
 			var t = this;
 
@@ -539,19 +540,19 @@ var FlipClock;
 
 				if(list) {
 					if(!doNotAddPlayClass && digit != list.digit) {
-						list.play();	
+						list.play();
 					}
 
 					list.select(digit);
-				}	
+				}
 				else {
 					t.addDigit(digit);
 				}
 			});
 		}
-					
+
 	});
-	
+
 }(jQuery));
 
 /*jshint smarttabs:true */
@@ -616,14 +617,14 @@ var FlipClock;
 		 */
 
 		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			divider: 'flip-clock-divider',
-			dot: 'flip-clock-dot',
-			label: 'flip-clock-label',
-			flip: 'flip',
-			play: 'play',
-			wrapper: 'flip-clock-wrapper'
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			divider: 'ec-flip-divider',
+			dot: 'ec-flip-dot',
+			label: 'ec-flip-label',
+			flip: 'ec-flip',
+			play: 'ec-play',
+			wrapper: 'ec-flip-wrapper'
 		},
 
 		/**
@@ -973,9 +974,13 @@ var FlipClock;
 		 */
 
 		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			flip: 'flip'
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			flip: 'ec-flip',
+			up: 'ec-up',
+			down: 'ec-down',
+			inner: 'ec-inner',
+			shadow: 'ec-shadow'
 		},
 
 		/**
@@ -1088,13 +1093,13 @@ var FlipClock;
 			return [
 				'<li class="'+(css ? css : '')+'">',
 					'<a href="#">',
-						'<div class="up">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
+						'<div class="'+this.classes.up+'">',
+							'<div class="'+this.classes.shadow+'"></div>',
+							'<div class="'+this.classes.inner+'">'+(value ? value : '')+'</div>',
 						'</div>',
-						'<div class="down">',
-							'<div class="shadow"></div>',
-							'<div class="inn">'+(value ? value : '')+'</div>',
+						'<div class="'+this.classes.down+'">',
+							'<div class="'+this.classes.shadow+'"></div>',
+							'<div class="'+this.classes.inner+'">'+(value ? value : '')+'</div>',
 						'</div>',
 					'</a>',
 				'</li>'
@@ -1151,43 +1156,53 @@ var FlipClock;
  * @copyright  2013 - Objective HTML, LLC
  * @licesnse   http://www.opensource.org/licenses/mit-license.php
  */
-	
+
 (function($) {
-	
+
 	"use strict";
-	
+
 	/**
 	 * Capitalize the first letter in a string
 	 *
 	 * @return string
 	 */
-	 
+
 	String.prototype.ucfirst = function() {
 		return this.substr(0, 1).toUpperCase() + this.substr(1);
 	};
-	
+
 	/**
 	 * jQuery helper method
 	 *
 	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
+	 * @param  object  An object of properties to override the default
 	 */
-	 
-	$.fn.FlipClock = function(digit, options) {	
+
+	$.fn.FlipClock = function(digit, options) {
 		return new FlipClock($(this), digit, options);
 	};
-	
+	$.fn.FlipClock.setMixup = function(mixup) {
+		$.each([
+			FlipClock.Factory.prototype.classes,
+			FlipClock.List.prototype.classes
+		], function () {
+			for (var key in this) {
+				this[key] = mixup(this[key]);
+			}
+		});
+	};
+
 	/**
 	 * jQuery helper method
 	 *
 	 * @param  int     An integer used to start the clock (no. seconds)
-	 * @param  object  An object of properties to override the default	
+	 * @param  object  An object of properties to override the default
 	 */
-	 
+
 	$.fn.flipClock = function(digit, options) {
 		return $.fn.FlipClock(digit, options);
 	};
-	
+
 }(jQuery));
 
 /*jshint smarttabs:true */

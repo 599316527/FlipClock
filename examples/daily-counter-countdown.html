@@ -12,9 +12,13 @@
 
 	<script type="text/javascript">
 		var clock;
-		
+
 		$(document).ready(function() {
 			var clock;
+
+			// $('.clock').FlipClock.setMixup(function (cls) {
+		 //    	return cls.replace('ec-', 'abc-');
+		 //    });
 
 			clock = $('.clock').FlipClock({
 		        clockFace: 'DailyCounter',
@@ -25,13 +29,17 @@
 		        	}
 		        }
 		    });
-				    
+
+		    // clock.mixup(function (cls) {
+		    // 	return cls.replace('ec-', 'abc-');
+		    // });
+
 		    clock.setTime(220880);
 		    clock.setCountdown(true);
 		    clock.start();
 
 		});
 	</script>
-	
+
 	</body>
 </html>

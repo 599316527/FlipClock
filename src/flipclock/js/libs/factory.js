@@ -60,14 +60,14 @@
 		 */
 
 		classes: {
-			active: 'flip-clock-active',
-			before: 'flip-clock-before',
-			divider: 'flip-clock-divider',
-			dot: 'flip-clock-dot',
-			label: 'flip-clock-label',
-			flip: 'flip',
-			play: 'play',
-			wrapper: 'flip-clock-wrapper'
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			divider: 'ec-flip-divider',
+			dot: 'ec-flip-dot',
+			label: 'ec-flip-label',
+			flip: 'ec-flip',
+			play: 'ec-play',
+			wrapper: 'ec-flip-wrapper'
 		},
 
 		/**
