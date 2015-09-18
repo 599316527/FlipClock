@@ -137,7 +137,7 @@
     bottom: 0;
 }
 
-.ec-flip-wrapper ul li a div div.ec-flip-inner {
+.ec-flip-wrapper ul li a div div.ec-flip-inn {
     position: absolute;
     left: 0;
     z-index: 1;
@@ -151,12 +151,12 @@
     font-size: 70px;
 }
 
-.ec-flip-wrapper ul li a div.ec-flip-up div.ec-flip-inner {
+.ec-flip-wrapper ul li a div.ec-flip-up div.ec-flip-inn {
     top: 0;
 
 }
 
-.ec-flip-wrapper ul li a div.ec-flip-down div.ec-flip-inner {
+.ec-flip-wrapper ul li a div.ec-flip-down div.ec-flip-inn {
     bottom: 0;
 }
 

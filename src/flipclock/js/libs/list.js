@@ -41,7 +41,7 @@
 			flip: 'ec-flip-flip',
 			up: 'ec-flip-up',
 			down: 'ec-flip-down',
-			inner: 'ec-flip-inner',
+			inner: 'ec-flip-inn',
 			shadow: 'ec-flip-shadow'
 		},
 		classes: {
@@ -50,7 +50,7 @@
 			flip: 'ec-flip-flip',
 			up: 'ec-flip-up',
 			down: 'ec-flip-down',
-			inner: 'ec-flip-inner',
+			inner: 'ec-flip-inn',
 			shadow: 'ec-flip-shadow'
 		},
 		/**
