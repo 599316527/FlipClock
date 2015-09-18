@@ -91,13 +91,13 @@
   height: 50%;
   overflow: hidden; }
 
-.ec-flip-wrapper ul li a div .ec-shadow {
+.ec-flip-wrapper ul li a div .ec-flip-shadow {
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 2; }
 
-.ec-flip-wrapper ul li a div.ec-up {
+.ec-flip-wrapper ul li a div.ec-flip-up {
   -webkit-transform-origin: 50% 100%;
   -moz-transform-origin: 50% 100%;
   -ms-transform-origin: 50% 100%;
@@ -105,7 +105,7 @@
   transform-origin: 50% 100%;
   top: 0; }
 
-.ec-flip-wrapper ul li a div.ec-up:after {
+.ec-flip-wrapper ul li a div.ec-flip-up:after {
   content: "";
   position: absolute;
   top: 44px;
@@ -116,7 +116,7 @@
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.4); }
 
-.ec-flip-wrapper ul li a div.ec-down {
+.ec-flip-wrapper ul li a div.ec-flip-down {
   -webkit-transform-origin: 50% 0;
   -moz-transform-origin: 50% 0;
   -ms-transform-origin: 50% 0;
@@ -124,7 +124,7 @@
   transform-origin: 50% 0;
   bottom: 0; }
 
-.ec-flip-wrapper ul li a div div.ec-inn {
+.ec-flip-wrapper ul li a div div.ec-flip-inner {
   position: absolute;
   left: 0;
   z-index: 1;
@@ -137,17 +137,17 @@
   border-radius: 6px;
   font-size: 70px; }
 
-.ec-flip-wrapper ul li a div.ec-up div.ec-inn {
+.ec-flip-wrapper ul li a div.ec-flip-up div.ec-flip-inner {
   top: 0; }
 
-.ec-flip-wrapper ul li a div.ec-down div.ec-inn {
+.ec-flip-wrapper ul li a div.ec-flip-down div.ec-flip-inner {
   bottom: 0; }
 
 /* PLAY */
-.ec-flip-wrapper ul.ec-play li.ec-flip-before {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-before {
   z-index: 3; }
 
-.ec-flip-wrapper ul.ec-play li.ec-flip-active {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-active {
   -webkit-animation: asd 0.5s 0.5s linear both;
   -moz-animation: asd 0.5s 0.5s linear both;
   animation: asd 0.5s 0.5s linear both;
@@ -185,10 +185,10 @@
 .ec-flip-divider.seconds .ec-flip-label {
   right: -91px; }
 
-.ec-flip-dot.ec-top {
+.ec-flip-dot.ec-flip-top {
   top: 30px; }
 
-.ec-flip-dot.ec-bottom {
+.ec-flip-dot.ec-flip-bottom {
   bottom: 30px; }
 
 @-webkit-keyframes asd {
@@ -215,7 +215,7 @@
   100% {
     z-index: 4; } }
 
-.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-down {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-active .ec-flip-down {
   z-index: 2;
   -webkit-animation: turn 0.5s 0.5s linear both;
   -moz-animation: turn 0.5s 0.5s linear both;
@@ -247,7 +247,7 @@
     -o-transform: rotateX(0deg);
     transform: rotateX(0deg); } }
 
-.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-up {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-before .ec-flip-up {
   z-index: 2;
   -webkit-animation: turn2 0.5s linear both;
   -moz-animation: turn2 0.5s linear both;
@@ -283,7 +283,7 @@
   z-index: 3; }
 
 /* SHADOW */
-.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-up .ec-shadow {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-before .ec-flip-up .ec-flip-shadow {
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, black 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, black));
   background: linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, black 100%);
@@ -294,7 +294,7 @@
   -moz-animation: ec-show 0.5s linear both;
   animation: ec-show 0.5s linear both; }
 
-.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-up .ec-shadow {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-active .ec-flip-up .ec-flip-shadow {
   background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, black 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.1)), color-stop(100%, black));
   background: linear-gradient(top, rgba(0, 0, 0, 0.1) 0%, black 100%);
@@ -306,7 +306,7 @@
   animation: ec-hide 0.5s 0.3s linear both; }
 
 /*DOWN*/
-.ec-flip-wrapper ul.ec-play li.ec-flip-before .ec-down .ec-shadow {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-before .ec-flip-down .ec-flip-shadow {
   background: -moz-linear-gradient(top, black 0%, rgba(0, 0, 0, 0.1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, black), color-stop(100%, rgba(0, 0, 0, 0.1)));
   background: linear-gradient(top, black 0%, rgba(0, 0, 0, 0.1) 100%);
@@ -317,7 +317,7 @@
   -moz-animation: ec-show 0.5s linear both;
   animation: ec-show 0.5s linear both; }
 
-.ec-flip-wrapper ul.ec-play li.ec-flip-active .ec-down .ec-shadow {
+.ec-flip-wrapper ul.ec-flip-play li.ec-flip-active .ec-flip-down .ec-flip-shadow {
   background: -moz-linear-gradient(top, black 0%, rgba(0, 0, 0, 0.1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, black), color-stop(100%, rgba(0, 0, 0, 0.1)));
   background: linear-gradient(top, black 0%, rgba(0, 0, 0, 0.1) 100%);

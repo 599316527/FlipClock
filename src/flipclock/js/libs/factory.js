@@ -59,14 +59,24 @@
 		 * The CSS classes
 		 */
 
+		unmixed_classes: {
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			divider: 'ec-flip-divider',
+			dot: 'ec-flip-dot',
+			label: 'ec-flip-label',
+			flip: 'ec-flip-flip',
+			play: 'ec-flip-play',
+			wrapper: 'ec-flip-wrapper'
+		},
 		classes: {
 			active: 'ec-flip-active',
 			before: 'ec-flip-before',
 			divider: 'ec-flip-divider',
 			dot: 'ec-flip-dot',
 			label: 'ec-flip-label',
-			flip: 'ec-flip',
-			play: 'ec-play',
+			flip: 'ec-flip-flip',
+			play: 'ec-flip-play',
 			wrapper: 'ec-flip-wrapper'
 		},
 

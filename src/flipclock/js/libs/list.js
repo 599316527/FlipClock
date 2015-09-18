@@ -35,16 +35,24 @@
 		 * The CSS classes
 		 */
 
+		unmixed_classes: {
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			flip: 'ec-flip-flip',
+			up: 'ec-flip-up',
+			down: 'ec-flip-down',
+			inner: 'ec-flip-inner',
+			shadow: 'ec-flip-shadow'
+		},
 		classes: {
 			active: 'ec-flip-active',
 			before: 'ec-flip-before',
-			flip: 'ec-flip',
-			up: 'ec-up',
-			down: 'ec-down',
-			inner: 'ec-inner',
-			shadow: 'ec-shadow'
+			flip: 'ec-flip-flip',
+			up: 'ec-flip-up',
+			down: 'ec-flip-down',
+			inner: 'ec-flip-inner',
+			shadow: 'ec-flip-shadow'
 		},
-
 		/**
 		 * The parent FlipClock.Factory object
 		 */

@@ -33,20 +33,20 @@
 		return new FlipClock($(this), digit, options);
 	};
 	$.fn.FlipClock.setMixup = function(mixup) {
-		$.each([
-			FlipClock.Factory.prototype.classes,
-			FlipClock.List.prototype.classes
-		], function () {
-			for (var key in this) {
-				this[key] = mixup(this[key]);
-			}
-		});
+		var fClass = FlipClock.Factory.prototype.classes = {};
+        var lClass = FlipClock.List.prototype.classes = {};
+        $.each(FlipClock.Factory.prototype.unmixed_classes,
+        function(key, value) {
+            fClass[key] = mixup(value)
+        });
+        $.each(FlipClock.List.prototype.unmixed_classes,
+        function(key, value) {
+            lClass[key] = mixup(value)
+        });
 	};
 	$.fn.FlipClock.setLanguage = function(lang) {
 		FlipClock.Lang['_DIY_'] = lang;
 	};
-
-
 
 	/**
 	 * jQuery helper method

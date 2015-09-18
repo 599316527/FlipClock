@@ -397,8 +397,8 @@ var FlipClock;
 			}
 
 			var dots = [
-				'<span class="'+this.factory.classes.dot+' ec-top"></span>',
-				'<span class="'+this.factory.classes.dot+' ec-bottom"></span>'
+				'<span class="'+this.factory.classes.dot+' ec-flip-top"></span>',
+				'<span class="'+this.factory.classes.dot+' ec-flip-bottom"></span>'
 			].join('');
 
 			if(excludeDots) {
@@ -406,7 +406,7 @@ var FlipClock;
 			}
 
 			label = this.factory.localize(label);
-			css = 'ec-' + css.toLowerCase();
+			css = css.toLowerCase();
 
 			var html = [
 				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
@@ -616,14 +616,24 @@ var FlipClock;
 		 * The CSS classes
 		 */
 
+		unmixed_classes: {
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			divider: 'ec-flip-divider',
+			dot: 'ec-flip-dot',
+			label: 'ec-flip-label',
+			flip: 'ec-flip-flip',
+			play: 'ec-flip-play',
+			wrapper: 'ec-flip-wrapper'
+		},
 		classes: {
 			active: 'ec-flip-active',
 			before: 'ec-flip-before',
 			divider: 'ec-flip-divider',
 			dot: 'ec-flip-dot',
 			label: 'ec-flip-label',
-			flip: 'ec-flip',
-			play: 'ec-play',
+			flip: 'ec-flip-flip',
+			play: 'ec-flip-play',
 			wrapper: 'ec-flip-wrapper'
 		},
 
@@ -973,16 +983,24 @@ var FlipClock;
 		 * The CSS classes
 		 */
 
+		unmixed_classes: {
+			active: 'ec-flip-active',
+			before: 'ec-flip-before',
+			flip: 'ec-flip-flip',
+			up: 'ec-flip-up',
+			down: 'ec-flip-down',
+			inner: 'ec-flip-inner',
+			shadow: 'ec-flip-shadow'
+		},
 		classes: {
 			active: 'ec-flip-active',
 			before: 'ec-flip-before',
-			flip: 'ec-flip',
-			up: 'ec-up',
-			down: 'ec-down',
-			inner: 'ec-inner',
-			shadow: 'ec-shadow'
+			flip: 'ec-flip-flip',
+			up: 'ec-flip-up',
+			down: 'ec-flip-down',
+			inner: 'ec-flip-inner',
+			shadow: 'ec-flip-shadow'
 		},
-
 		/**
 		 * The parent FlipClock.Factory object
 		 */
@@ -1182,20 +1200,20 @@ var FlipClock;
 		return new FlipClock($(this), digit, options);
 	};
 	$.fn.FlipClock.setMixup = function(mixup) {
-		$.each([
-			FlipClock.Factory.prototype.classes,
-			FlipClock.List.prototype.classes
-		], function () {
-			for (var key in this) {
-				this[key] = mixup(this[key]);
-			}
-		});
+		var fClass = FlipClock.Factory.prototype.classes = {};
+        var lClass = FlipClock.List.prototype.classes = {};
+        $.each(FlipClock.Factory.prototype.unmixed_classes,
+        function(key, value) {
+            fClass[key] = mixup(value)
+        });
+        $.each(FlipClock.List.prototype.unmixed_classes,
+        function(key, value) {
+            lClass[key] = mixup(value)
+        });
 	};
 	$.fn.FlipClock.setLanguage = function(lang) {
 		FlipClock.Lang['_DIY_'] = lang;
 	};
-
-
 
 	/**
 	 * jQuery helper method
@@ -2307,82 +2325,82 @@ var FlipClock;
 	
 }(jQuery));
 (function($) {
-		
+
 	/**
 	 * Twelve Hour Clock Face
 	 *
 	 * This class will generate a twelve hour clock for FlipClock.js
 	 *
 	 * @param  object  The parent FlipClock.Factory object
-	 * @param  object  An object of properties to override the default	
+	 * @param  object  An object of properties to override the default
 	 */
-	 
+
 	FlipClock.TwelveHourClockFace = FlipClock.TwentyFourHourClockFace.extend({
-		
+
 		/**
 		 * The meridium jQuery DOM object
 		 */
-		 
+
 		meridium: false,
-		
+
 		/**
 		 * The meridium text as string for easy access
 		 */
-		 
+
 		meridiumText: 'AM',
-					
+
 		/**
 		 * Build the clock face
 		 *
-		 * @param  object  Pass the time that should be used to display on the clock.	
+		 * @param  object  Pass the time that should be used to display on the clock.
 		 */
-		 
+
 		build: function() {
 			var t = this;
 
 			var time = this.factory.time.getTime(false, this.showSeconds);
 
-			this.base(time);			
-			this.meridiumText = this.getMeridium();			
+			this.base(time);
+			this.meridiumText = this.getMeridium();
 			this.meridium = $([
-				'<ul class="flip-clock-meridium">',
+				'<ul class="ec-flip-meridium">',
 					'<li>',
 						'<a href="#">'+this.meridiumText+'</a>',
 					'</li>',
 				'</ul>'
 			].join(''));
-						
+
 			this.meridium.insertAfter(this.lists[this.lists.length-1].$el);
 		},
-		
+
 		/**
 		 * Flip the clock face
 		 */
-		 
-		flip: function(time, doNotAddPlayClass) {			
+
+		flip: function(time, doNotAddPlayClass) {
 			if(this.meridiumText != this.getMeridium()) {
 				this.meridiumText = this.getMeridium();
-				this.meridium.find('a').html(this.meridiumText);	
+				this.meridium.find('a').html(this.meridiumText);
 			}
-			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);	
+			this.base(this.factory.time.getTime(false, this.showSeconds), doNotAddPlayClass);
 		},
-		
+
 		/**
 		 * Get the current meridium
 		 *
 		 * @return  string  Returns the meridium (AM|PM)
 		 */
-		 
+
 		getMeridium: function() {
 			return new Date().getHours() >= 12 ? 'PM' : 'AM';
 		},
-		
+
 		/**
 		 * Is it currently in the post-medirium?
 		 *
 		 * @return  bool  Returns true or false
 		 */
-		 
+
 		isPM: function() {
 			return this.getMeridium() == 'PM' ? true : false;
 		},
@@ -2392,14 +2410,15 @@ var FlipClock;
 		 *
 		 * @return  bool  Returns true or false
 		 */
-		 
+
 		isAM: function() {
 			return this.getMeridium() == 'AM' ? true : false;
 		}
-				
+
 	});
-	
+
 }(jQuery));
+
 (function($) {
 		
 	/**

@@ -85,8 +85,8 @@
 			}
 
 			var dots = [
-				'<span class="'+this.factory.classes.dot+' ec-top"></span>',
-				'<span class="'+this.factory.classes.dot+' ec-bottom"></span>'
+				'<span class="'+this.factory.classes.dot+' ec-flip-top"></span>',
+				'<span class="'+this.factory.classes.dot+' ec-flip-bottom"></span>'
 			].join('');
 
 			if(excludeDots) {
@@ -94,7 +94,7 @@
 			}
 
 			label = this.factory.localize(label);
-			css = 'ec-' + css.toLowerCase();
+			css = css.toLowerCase();
 
 			var html = [
 				'<span class="'+this.factory.classes.divider+' '+(css ? css : '').toLowerCase()+'">',
