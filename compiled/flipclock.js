@@ -1191,6 +1191,11 @@ var FlipClock;
 			}
 		});
 	};
+	$.fn.FlipClock.setLanguage = function(lang) {
+		FlipClock.Lang['_DIY_'] = lang;
+	};
+
+
 
 	/**
 	 * jQuery helper method

@@ -1,4 +1,28 @@
-# FlipClock.js
+
+# MODIFICATIONS
+
+* use `setMixup` to inject our class-mixing function into FlipClock
+*
+    ```js
+    $['fn']['FlipClock']['setMixup'](ad.base.mixup);
+    ```
+
+* use `setLanguage` to configure your own text
+
+    ```js
+    $['fn']['FlipClock']['setLanguage']({
+        'years'   : 'Jahre',
+        'months'  : 'Monate',
+        'days'    : 'Tage',
+        'hours'   : 'Stunden',
+        'minutes' : 'Minuten',
+        'seconds' : 'Sekunden'
+    });
+    ```
+
+# Original Readme
+
+## FlipClock.js
 
 ### Installation
 
